@@ -37,16 +37,16 @@ struct DayDotView: View {
             // Today highlight ring
             if state == .today {
                 Circle()
-                    .stroke(AppColors.todayAccent, lineWidth: 3)
-                    .frame(width: size * 0.95, height: size * 0.95)
+                    .stroke(AppColors.todayAccent, lineWidth: 1.5)
+                    .frame(width: size * 0.9, height: size * 0.9)
                     .offset(x: offsetX, y: offsetY)
             }
 
             // Future marker ring
             if state == .future && isMarked {
                 Circle()
-                    .stroke(AppColors.textSecondary, lineWidth: 1)
-                    .frame(width: size * 0.75, height: size * 0.75)
+                    .stroke(AppColors.textSecondary, lineWidth: 0.75)
+                    .frame(width: size * 0.7, height: size * 0.7)
                     .offset(x: offsetX, y: offsetY)
             }
         }
@@ -59,23 +59,16 @@ struct DayDotView: View {
     // MARK: - Computed Properties
 
     private var dotSize: CGFloat {
-        // Base size with slight random variation for organic feel
-        let baseSize: CGFloat = 0.55
-        var generator = SeededRandomGenerator(seed: dayOfYear)
-        let variation = CGFloat.random(in: -0.08...0.08, using: &generator)
-        return size * (baseSize + variation)
+        let baseSize: CGFloat = 0.38
+        return size * baseSize
     }
 
     private var offsetX: CGFloat {
-        // Slight horizontal offset for hand-stamped feel
-        var generator = SeededRandomGenerator(seed: dayOfYear * 2)
-        return CGFloat.random(in: -1.5...1.5, using: &generator)
+        0
     }
 
     private var offsetY: CGFloat {
-        // Slight vertical offset for hand-stamped feel
-        var generator = SeededRandomGenerator(seed: dayOfYear * 3)
-        return CGFloat.random(in: -1.5...1.5, using: &generator)
+        0
     }
 
     private var fillColor: Color {

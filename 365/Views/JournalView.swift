@@ -31,7 +31,13 @@ struct JournalView: View {
             header
                 .padding(.horizontal, 24)
                 .padding(.top, 16)
-                .padding(.bottom, 24)
+                .padding(.bottom, 16)
+
+            Rectangle()
+                .fill(AppColors.textSecondary.opacity(0.18))
+                .frame(height: 1)
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
 
             if isFuture {
                 futureMessage
@@ -42,10 +48,23 @@ struct JournalView: View {
             Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(AppColors.background)
+        .background(AppColors.background.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbarBackground(AppColors.background, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .light, design: .serif))
+                        .foregroundStyle(AppColors.textPrimary)
+                        .accessibilityLabel("Back")
+                }
+            }
+        }
         .onAppear(perform: loadEntry)
         .onDisappear(perform: saveEntry)
     }
@@ -56,33 +75,40 @@ struct JournalView: View {
                 .font(Typography.largeTitle)
                 .foregroundStyle(AppColors.textPrimary)
                 .tracking(2)
-
-            Text("Day \(dayOfYear) of \(totalDays)")
-                .font(Typography.monoCaption)
-                .foregroundStyle(AppColors.textSecondary)
         }
     }
 
     private var futureMessage: some View {
-        VStack {
-            Spacer()
-            Text("Not yet")
+        VStack(alignment: .leading) {
+            Text("This day hasn't happened yet! Come back when it's time to reflect")
                 .font(Typography.monoBody)
                 .foregroundStyle(AppColors.textSecondary.opacity(0.6))
-            Spacer()
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .padding(.horizontal, 26)
+        .padding(.top, 8)
     }
 
     private var journalEditor: some View {
-        TextEditor(text: $text)
-            .font(Typography.monoBody)
-            .foregroundStyle(AppColors.textPrimary)
-            .scrollContentBackground(.hidden)
-            .padding(.horizontal, 20)
-            .onChange(of: text) { _, _ in
-                debouncedSave()
+        ZStack(alignment: .topLeading) {
+            TextEditor(text: $text)
+                .font(Typography.monoBody)
+                .foregroundStyle(AppColors.textPrimary)
+                .scrollContentBackground(.hidden)
+                .padding(.horizontal, 20)
+                .onChange(of: text) { _, _ in
+                    debouncedSave()
+                }
+
+            if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                Text("Start typing here")
+                    .font(Typography.monoBody)
+                    .foregroundStyle(AppColors.textSecondary.opacity(0.6))
+                    .padding(.horizontal, 26)
+                    .padding(.vertical, 8)
+                    .allowsHitTesting(false)
             }
+        }
     }
 
     private func loadEntry() {

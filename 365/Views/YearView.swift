@@ -22,7 +22,13 @@ struct YearView: View {
                             .tracking(1)
                     }
                     .padding(.top, 32)
-                    .padding(.bottom, 48)
+                    .padding(.bottom, 16)
+
+                    Rectangle()
+                        .fill(AppColors.textSecondary.opacity(0.18))
+                        .frame(height: 1)
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 32)
 
                     // Dot Grid
                     DotGridView(year: year, todayDayOfYear: todayDayOfYear)
@@ -31,7 +37,7 @@ struct YearView: View {
                 }
                 .padding(.horizontal, 40)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(AppColors.background)
+                .background(AppColors.background.ignoresSafeArea())
             }
             .navigationDestination(for: DayDestination.self) { destination in
                 JournalView(

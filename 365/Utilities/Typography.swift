@@ -1,15 +1,15 @@
 import SwiftUI
 
 /// Typography constants for the 365 app.
-/// Chalkboard typography for alternative aesthetic.
+/// Art deco-inspired typography for a refined, geometric feel.
 enum Typography {
 
-    /// Large title font with chalkboard design (for the year).
-    static let largeTitle: Font = .custom("Futura", size: 28)
+    /// Large title font with art deco influence (for the year).
+    static let largeTitle: Font = .custom("Didot", size: 31)
 
-    /// Body font with chalkboard design (for day counts).
-    static let monoBody: Font = .custom("Hoefler Text", size: 17)
+    /// Body font with art deco influence.
+    static let monoBody: Font = .custom("Optima", size: 17)
 
-    /// Caption font with chalkboard design.
-    static let monoCaption: Font = .custom("Futura", size: 13)
+    /// Caption font with art deco influence.
+    static let monoCaption: Font = .custom("Bodoni 72", size: 13)
 }

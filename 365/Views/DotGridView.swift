@@ -50,6 +50,7 @@ struct DotGridView: View {
                         )
                     }
                     .buttonStyle(.plain)
+                    .contentShape(Rectangle())
                     .simultaneousGesture(LongPressGesture(minimumDuration: 0.35).onEnded { _ in
                         guard state == .future else { return }
                         markerStore.toggle(dayOfYear: day)
