@@ -24,9 +24,10 @@ A minimal iOS app that visualizes the passage of the current year using a grid o
 
 ## Requirements
 
-- iOS 17.0+
+- iOS 18.0+
 - Xcode 15.0+
 - SwiftUI
+- SwiftData (uses `#Unique`, available in iOS 18+)
 
 ## Project Structure
 

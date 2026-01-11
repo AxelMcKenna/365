@@ -1,15 +1,15 @@
 import SwiftUI
 
 /// Typography constants for the 365 app.
-/// Uses monospaced system fonts for a typewriter-like aesthetic.
+/// Chalkboard typography for alternative aesthetic.
 enum Typography {
 
-    /// Large title font with monospaced design (for the year).
-    static let largeTitle: Font = .system(.largeTitle, design: .monospaced).weight(.medium)
+    /// Large title font with chalkboard design (for the year).
+    static let largeTitle: Font = .custom("Futura", size: 28)
 
-    /// Body font with monospaced digits (for day counts).
-    static let monoBody: Font = .system(.body, design: .monospaced).monospacedDigit()
+    /// Body font with chalkboard design (for day counts).
+    static let monoBody: Font = .custom("Hoefler Text", size: 17)
 
-    /// Caption font with monospaced digits.
-    static let monoCaption: Font = .system(.caption, design: .monospaced).monospacedDigit()
+    /// Caption font with chalkboard design.
+    static let monoCaption: Font = .custom("Futura", size: 13)
 }
