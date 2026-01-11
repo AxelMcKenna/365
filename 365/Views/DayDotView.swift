@@ -1,5 +1,4 @@
 import SwiftUI
-import Inject
 
 /// Represents the state of a single day dot.
 enum DayState {
@@ -10,13 +9,14 @@ enum DayState {
 
 /// A single dot representing one day in the year.
 struct DayDotView: View {
-    @ObserveInjection var inject
     let dayOfYear: Int
     let year: Int
     let state: DayState
     let size: CGFloat
     let hasJournalEntry: Bool
     let isMarked: Bool
+    let isMonthStart: Bool
+    let isWeekStart: Bool
 
     var body: some View {
         ZStack {
@@ -38,7 +38,7 @@ struct DayDotView: View {
             if state == .today {
                 Circle()
                     .stroke(AppColors.todayAccent, lineWidth: 1.5)
-                    .frame(width: size * 0.9, height: size * 0.9)
+                    .frame(width: size * 0.9 * ringScale, height: size * 0.9 * ringScale)
                     .offset(x: offsetX, y: offsetY)
             }
 
@@ -46,21 +46,30 @@ struct DayDotView: View {
             if state == .future && isMarked {
                 Circle()
                     .stroke(AppColors.textSecondary, lineWidth: 0.75)
-                    .frame(width: size * 0.7, height: size * 0.7)
+                    .frame(width: size * 0.7 * ringScale, height: size * 0.7 * ringScale)
                     .offset(x: offsetX, y: offsetY)
             }
         }
         .frame(width: size, height: size)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
-        .enableInjection()
     }
 
     // MARK: - Computed Properties
 
     private var dotSize: CGFloat {
-        let baseSize: CGFloat = 0.38
-        return size * baseSize
+        let baseSize: CGFloat = 0.304
+        let monthScale: CGFloat = isMonthStart ? 1.5 : 1.0
+        return size * baseSize * monthScale * weekScale
+    }
+
+    private var ringScale: CGFloat {
+        let emphasisScale = (isMonthStart ? 1.5 : 1.0) * weekScale
+        return emphasisScale * 0.85
+    }
+
+    private var weekScale: CGFloat {
+        isWeekStart ? 1.3 : 1.0
     }
 
     private var offsetX: CGFloat {
@@ -96,27 +105,11 @@ struct DayDotView: View {
     }
 }
 
-// MARK: - Seeded Random Generator
-
-/// A random number generator with a seed for consistent randomness
-struct SeededRandomGenerator: RandomNumberGenerator {
-    private var state: UInt64
-
-    init(seed: Int) {
-        state = UInt64(seed)
-    }
-
-    mutating func next() -> UInt64 {
-        state = state &* 6364136223846793005 &+ 1442695040888963407
-        return state
-    }
-}
-
 #Preview {
     HStack(spacing: 20) {
-        DayDotView(dayOfYear: 1, year: 2026, state: .past, size: 40, hasJournalEntry: false, isMarked: false)
-        DayDotView(dayOfYear: 2, year: 2026, state: .today, size: 40, hasJournalEntry: true, isMarked: false)
-        DayDotView(dayOfYear: 3, year: 2026, state: .future, size: 40, hasJournalEntry: false, isMarked: true)
+        DayDotView(dayOfYear: 1, year: 2026, state: .past, size: 40, hasJournalEntry: false, isMarked: false, isMonthStart: true, isWeekStart: false)
+        DayDotView(dayOfYear: 2, year: 2026, state: .today, size: 40, hasJournalEntry: true, isMarked: false, isMonthStart: false, isWeekStart: true)
+        DayDotView(dayOfYear: 3, year: 2026, state: .future, size: 40, hasJournalEntry: false, isMarked: true, isMonthStart: false, isWeekStart: false)
     }
     .padding()
 }

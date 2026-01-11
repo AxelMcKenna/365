@@ -5,7 +5,7 @@ import SwiftUI
 enum Typography {
 
     /// Large title font with art deco influence (for the year).
-    static let largeTitle: Font = .custom("Didot", size: 31)
+    static let largeTitle: Font = .custom("Times New Roman", size: 31)
 
     /// Body font with art deco influence.
     static let monoBody: Font = .custom("Optima", size: 17)

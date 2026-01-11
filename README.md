@@ -9,25 +9,29 @@ A minimal iOS app that visualizes the passage of the current year using a grid o
 - Each dot represents one day
 - Past days and today are automatically filled
 - Future days remain unfilled and de-emphasized
-- No user input, no interaction — just pure visualization
+- Minimal interaction keeps the focus on time and rhythm
 
 ## Features
 
 - **Auto-fills** all dots up to and including today
 - **Auto-updates** when the day changes (midnight)
-- **7-column grid** creates a weekly rhythm
+- **15-column grid** creates a steady visual cadence
 - **Today highlighted** with an accent ring
+- **Month and week rhythm** via subtle dot-size changes
+- **Future day markers** (up to three) via long-press on future dots
+- **Journaling** for past/today days
+- **Pinch-to-zoom** toggles density between overview and detail
 - **Leap year aware** (365 or 366 dots)
 - **Fully accessible** with VoiceOver support
 - **Light & dark mode** support
-- **Minimal, monospaced design** inspired by typewriter aesthetics
+- **Premium, minimal styling** with art-deco typography
 
 ## Requirements
 
 - iOS 18.0+
 - Xcode 15.0+
 - SwiftUI
-- SwiftData (uses `#Unique`, available in iOS 18+)
+- SwiftData
 
 ## Project Structure
 
@@ -37,13 +41,18 @@ A minimal iOS app that visualizes the passage of the current year using a grid o
 └── 365/
     ├── App.swift                 # Main entry point (@main)
     ├── Services/
-    │   └── DateService.swift     # Calendar calculations & date utilities
+    │   ├── DateService.swift     # Calendar calculations & date utilities
+    │   └── MarkerStore.swift     # Future day marker persistence
+    ├── Models/
+    │   └── JournalEntry.swift    # SwiftData model
     ├── Views/
     │   ├── YearView.swift        # Main view with header & auto-update logic
-    │   ├── DotGridView.swift     # Responsive 7-column LazyVGrid
-    │   └── DayDotView.swift      # Individual day dot component
+    │   ├── DotGridView.swift     # Responsive 15-column LazyVGrid
+    │   ├── DayDotView.swift      # Individual day dot component
+    │   └── JournalView.swift     # Journal editor for a day
     ├── Utilities/
-    │   └── Typography.swift      # Monospaced font definitions
+    │   ├── Typography.swift      # Art-deco font definitions
+    │   └── Colors.swift          # Monochrome palette
     └── Assets.xcassets/
 ```
 
@@ -76,14 +85,14 @@ The UI updates automatically when the date changes using:
 Every dot includes meaningful accessibility labels:
 - "January 12, passed"
 - "January 13, today"
-- "January 14, future"
+- "January 14, future" / "January 14, marked"
 
 ### Design Philosophy
 - Minimal and calm
-- System colors only (accent color for today)
-- Monospaced typography throughout
+- Monochrome palette with restrained accents
+- Art-deco typography
 - Responsive grid adapts to all iPhone sizes
-- No persistence needed (all state derived from current date)
+- Persistence only for journaling and future markers
 
 ## What's Excluded
 
@@ -92,7 +101,6 @@ By design, this app does **not** include:
 - Cloud sync
 - Multiple years / year picker
 - Settings or preferences
-- Notes or journaling
 - Export/import
 - Streaks or gamification
 - Interactive dot toggling

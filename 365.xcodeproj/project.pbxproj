@@ -19,7 +19,6 @@
 		A1000009201A0009 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000009101A0009 /* Colors.swift */; };
 		A100000A201A000A /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000A101A000A /* JournalEntry.swift */; };
 		A100000B201A000B /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000B101A000B /* JournalView.swift */; };
-		BD69795E2F132EFD00E6B5F4 /* Inject in Frameworks */ = {isa = PBXBuildFile; productRef = BD69795D2F132EFD00E6B5F4 /* Inject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD69795E2F132EFD00E6B5F4 /* Inject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,9 +167,6 @@
 				Base,
 			);
 			mainGroup = A1000000401A0000;
-			packageReferences = (
-				BD69795C2F132EFD00E6B5F4 /* XCRemoteSwiftPackageReference "Inject" */,
-			);
 			productRefGroup = A1000000601A0000 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -416,24 +411,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		BD69795C2F132EFD00E6B5F4 /* XCRemoteSwiftPackageReference "Inject" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krzysztofzablocki/Inject";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		BD69795D2F132EFD00E6B5F4 /* Inject */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BD69795C2F132EFD00E6B5F4 /* XCRemoteSwiftPackageReference "Inject" */;
-			productName = Inject;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A1000000F01A0000 /* Project object */;
 }

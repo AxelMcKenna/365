@@ -1,10 +1,8 @@
 import SwiftUI
-import Inject
 
 /// The main view displaying the current year as a grid of dots.
 /// Automatically updates when the date changes (at midnight).
 struct YearView: View {
-    @ObserveInjection var inject
     @State private var currentDate = Date()
 
     var body: some View {
@@ -51,7 +49,6 @@ struct YearView: View {
             // Force refresh on significant time changes (midnight, timezone changes)
             currentDate = Date()
         }
-        .enableInjection()
     }
 }
 

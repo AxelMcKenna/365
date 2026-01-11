@@ -30,7 +30,7 @@ struct JournalView: View {
         VStack(alignment: .leading, spacing: 0) {
             header
                 .padding(.horizontal, 24)
-                .padding(.top, 16)
+                .padding(.top, 32)
                 .padding(.bottom, 16)
 
             Rectangle()
@@ -49,28 +49,27 @@ struct JournalView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(AppColors.background.ignoresSafeArea())
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbarBackground(AppColors.background, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .light, design: .serif))
-                        .foregroundStyle(AppColors.textPrimary)
-                        .accessibilityLabel("Back")
-                }
-            }
-        }
+        .toolbar(.hidden, for: .navigationBar)
         .onAppear(perform: loadEntry)
         .onDisappear(perform: saveEntry)
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        ZStack {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .light, design: .serif))
+                        .foregroundStyle(AppColors.textPrimary)
+                        .accessibilityLabel("Back")
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
+            }
+
             Text(dateHeader)
                 .font(Typography.largeTitle)
                 .foregroundStyle(AppColors.textPrimary)
@@ -80,7 +79,7 @@ struct JournalView: View {
 
     private var futureMessage: some View {
         VStack(alignment: .leading) {
-            Text("This day hasn't happened yet! Come back when it's time to reflect")
+            Text("This day hasn't happened yet! Come back when you've made some memories")
                 .font(Typography.monoBody)
                 .foregroundStyle(AppColors.textSecondary.opacity(0.6))
         }
@@ -101,7 +100,7 @@ struct JournalView: View {
                 }
 
             if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                Text("Start typing here")
+                Text("Start typing here...")
                     .font(Typography.monoBody)
                     .foregroundStyle(AppColors.textSecondary.opacity(0.6))
                     .padding(.horizontal, 26)
