@@ -27,8 +27,11 @@ struct YearView: View {
 
                 // Dot Grid
                 DotGridView(year: year, todayDayOfYear: todayDayOfYear)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(uiColor: .systemBackground))
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
             // Force refresh on significant time changes (midnight, timezone changes)
